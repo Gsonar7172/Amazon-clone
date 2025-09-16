@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Buy Now - Amazon</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px 30px 20px 30px;
+        }
+        h2 {
+            text-align: center;
+        }
+        .product-img {
+            display: block;
+            margin: 0 auto 10px auto;
+            width: 120px;
+            height: auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .total {
+            font-size: 1.2em;
+            margin: 10px 0;
+            text-align: right;
+        }
+        button {
+            width: 100%;
+            background: #ffd814;
+            border: none;
+            padding: 12px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #007185;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="Amazon.html" class="back-link">&larr; Back to Shopping</a>
+        <h2>Buy Now</h2>
+        <img id="productImg" class="product-img" src="" alt="Product">
+        <div class="form-group"><b>Product:</b> <span id="productName"></span></div>
+        <div class="form-group"><b>Price:</b> ₹<span id="productPrice"></span></div>
+        <form id="buyNowForm" onsubmit="submitBuyNow(event)">
+            <div class="form-group">
+                <label for="customerName">Customer Name:</label>
+                <input type="text" id="customerName" name="customerName" required>
+            </div>
+            <div class="form-group">
+                <label for="mobile">Mobile Number:</label>
+                <input type="text" id="mobile" name="mobile" pattern="[0-9]{10}" maxlength="10" required>
+            </div>
+            <div class="form-group">
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" required>
+            </div>
+            <div class="form-group">
+                <label for="pincode">Pincode:</label>
+                <input type="text" id="pincode" name="pincode" pattern="[0-9]{6}" maxlength="6" required>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" value="1" min="1" max="99" required>
+            </div>
+            <div class="form-group">
+                <label for="delivery">Delivery Charges (₹):</label>
+                <input type="number" id="delivery" name="delivery" value="50" min="0" required readonly>
+            </div>
+            <div class="total"><b>Total: ₹<span id="totalPrice"></span></b></div>
+            <div class="form-group">
+                <label for="address">Shipping Address:</label>
+                <input type="text" id="address" name="address" required>
+            </div>
+            <div class="form-group">
+                <label for="payment">Payment Method:</label>
+                <select id="payment" name="payment" required>
+                    <option value="">Select Payment Method</option>
+                    <option value="credit">Credit Card</option>
+                    <option value="debit">Debit Card</option>
+                    <option value="upi">UPI</option>
+                    <option value="cod">Cash on Delivery</option>
+                </select>
+            </div>
+            <button type="submit">Place Order</button>
+        </form>
+    </div>
+    <script>
+        // Parse product info from URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param) || '';
+        }
+        const name = decodeURIComponent(getQueryParam('name'));
+        const priceStr = decodeURIComponent(getQueryParam('price'));
+        const img = decodeURIComponent(getQueryParam('img'));
+        document.getElementById('productName').textContent = name;
+        document.getElementById('productImg').src = img;
+        document.getElementById('productPrice').textContent = priceStr.replace(/[^\d]/g, '');
+        // Delivery charges by product name
+        const deliveryCharges = {
+            'Wireless Headphones': 40,
+            'HP 15s, 12th Gen Intel Core i3-1215U Laptop (8GB DDR4, 512GB SSD)': 100,
+            'Organic Grocery Pack': 20,
+            'Lakme Absolute Day-N-Night cream': 30,
+            'QUXIS Resistance Bands Set for Men and Women': 25,
+            'Dabur Jamun Neem Karela Juice - 1L | Helps Control Blood Sugar Level & Reduces Bad Cholesterol ': 15
+        };
+        // Set delivery charge based on product
+        let deliveryCharge = 50; // default
+        if (deliveryCharges[name]) {
+            deliveryCharge = deliveryCharges[name];
+        }
+        document.getElementById('delivery').value = deliveryCharge;
+        // Price calculation
+        function updateTotal() {
+            const qty = parseInt(document.getElementById('quantity').value, 10) || 1;
+            const price = parseInt(priceStr.replace(/[^\d]/g, ''), 10);
+            const delivery = parseInt(document.getElementById('delivery').value, 10) || 0;
+            document.getElementById('totalPrice').textContent = (price * qty) + delivery;
+        }
+        document.getElementById('quantity').addEventListener('input', updateTotal);
+        updateTotal();
+        // Submit logic
+        function submitBuyNow(event) {
+            event.preventDefault();
+            const customerName = document.getElementById('customerName').value.trim();
+            const mobile = document.getElementById('mobile').value.trim();
+            const city = document.getElementById('city').value.trim();
+            const pincode = document.getElementById('pincode').value.trim();
+            const qty = parseInt(document.getElementById('quantity').value, 10) || 1;
+            const delivery = parseInt(document.getElementById('delivery').value, 10) || 0;
+            const total = document.getElementById('totalPrice').textContent;
+            const address = document.getElementById('address').value.trim();
+            const payment = document.getElementById('payment').value;
+            if (!customerName || !mobile || !city || !pincode || !address || !payment) {
+                alert('Please fill all details.');
+                return;
+            }
+            alert('Order placed!\n\nProduct: ' + name +
+                '\nCustomer: ' + customerName +
+                '\nMobile: ' + mobile +
+                '\nCity: ' + city +
+                '\nPincode: ' + pincode +
+                '\nQuantity: ' + qty +
+                '\nDelivery Charges: ₹' + delivery +
+                '\nTotal: ₹' + total +
+                '\nAddress: ' + address +
+                '\nPayment: ' + payment.charAt(0).toUpperCase() + payment.slice(1)
+            );
+            window.location.href = 'Amazon.html';
+        }
+    </script>
+</body>
+</html> 

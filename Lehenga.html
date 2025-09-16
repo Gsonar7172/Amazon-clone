@@ -1,0 +1,499 @@
+<html>
+<head>
+<title>Lehenga's</title>
+<style>
+    .h2 {
+        text-align: center;
+        font-size:medium;
+        font-family: 'Times New Roman', Times, serif;
+        color: goldenrod;
+        font-weight: bold;
+        background: #000;
+    }
+    .product-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: flex-start;
+        }
+
+        .product-card {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            width: 200px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 24px rgba(255, 152, 0, 0.2);
+            z-index: 2;
+        }
+
+        .offer-banner {
+            background: linear-gradient(90deg, #ff9800, #ffc107, #ff9800);
+            color: #fff;
+            font-size: 1.3em;
+            font-weight: bold;
+            text-align: center;
+            padding: 12px 0;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            animation: slideBanner 2s infinite alternate;
+            letter-spacing: 1px;
+        }
+
+        @keyframes slideBanner {
+            0% { box-shadow: 0 0 10px #ff9800; }
+            100% { box-shadow: 0 0 30px #ffc107; }
+        }
+
+        .offer-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #e91e63;
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(233,30,99,0.2);
+            animation: blinkBadge 1.2s infinite alternate;
+        }
+
+        @keyframes blinkBadge {
+            0% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        .buy-now-btn {
+            background: #ff9800;
+            color: #fff;
+            border: none;
+            padding: 7px 16px;
+            border-radius: 4px;
+            margin-left: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .buy-now-btn:hover {
+            background: #e65100;
+        }
+
+        .wishlist-heart {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5em;
+            color: #e91e63;
+            cursor: pointer;
+            transition: transform 0.2s;
+            z-index: 3;
+        }
+
+        .wishlist-heart.filled {
+            color: #c2185b;
+            transform: scale(1.2);
+        }
+
+        .star-rating {
+            display: inline-block;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        .star-rating span {
+            color: #ffd700;
+            transition: color 0.2s;
+        }
+
+        .star-rating span.inactive {
+            color: #ccc;
+        }
+
+        .quick-view-btn {
+            background: #2196f3;
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            margin-top: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .quick-view-btn:hover {
+            background: #1565c0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: auto;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 30px 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 90vw;
+            text-align: center;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 18px;
+            font-size: 1.5em;
+            color: #888;
+            cursor: pointer;
+        }
+
+        .floating-chat-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 2em;
+            box-shadow: 0 4px 16px rgba(76,175,80,0.2);
+            cursor: pointer;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .floating-chat-btn:hover {
+            background: #087f23;
+        }
+
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 40px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 300px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+            z-index: 2100;
+            padding: 16px;
+        }
+
+        .chat-popup h4 {
+            margin: 0 0 10px 0;
+            color: #4caf50;
+        }
+
+        .chat-popup textarea {
+            width: 100%;
+            height: 60px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-bottom: 8px;
+            padding: 6px;
+            resize: none;
+        }
+
+        .chat-popup button {
+            background: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            cursor: pointer;
+            float: right;
+        }
+</style>
+</head>
+<body>
+    <div class="h2">
+<h1>Lehenga's</h1>
+</div>
+<div class="offer-banner"> Festive Sale! Up to 50% OFF on Select Lehenga Wear | Free Shipping on Orders Above Rs.999! <span id="countdown"></span> </div>
+<div class="product-section">
+    <h2>Shop the Best Deals</h2>
+    <div class="product-cards">
+        <div class="product-card" style="position:relative;">
+            <span class="wishlist-heart" onclick="toggleWishlist(this)">&#9825;</span>
+            <span class="offer-badge">Limited Time Offer</span>
+            <img src="lhg1.webp" alt="kurti" onclick="zoomImage(this.src)">
+            <div class="name">Xomantic Fashion Womens Semi Stitched Lehnega Choli </div>
+            <div class="price">Rs.648</div>
+            <div class="star-rating" data-rating="4" onmousemove="starHover(event, this)" onmouseleave="starLeave(this)" onclick="starClick(event, this)">
+                <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span class="inactive">&#9733;</span>
+            </div>
+            <div class="rating"></div>
+            <button class="add-to-cart-btn">Add to Cart</button> 
+            <button class="buy-now-btn">Buy Now</button>
+            <button class="quick-view-btn" onclick="openModal(0)">Quick View</button>
+        </div>
+        <div class="product-card" style="position:relative;">
+            <span class="wishlist-heart" onclick="toggleWishlist(this)">&#9825;</span>
+            <img src="lhg2.webp" alt="kurti2" onclick="zoomImage(this.src)">
+            <div class="name">Lehenga set for Women Net Multi Embroidered Sequence Geometric Work Semi Stitched Lehenga</div>
+            <div class="price">Rs.1,725</div>
+            <div class="star-rating" data-rating="4" onmousemove="starHover(event, this)" onmouseleave="starLeave(this)" onclick="starClick(event, this)">
+                <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span class="inactive">&#9733;</span>
+            </div>
+            <div class="rating"></div>
+            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="buy-now-btn">Buy Now</button>
+            <button class="quick-view-btn" onclick="openModal(1)">Quick View</button>
+        </div>
+        <div class="product-card" style="position:relative;">
+            <span class="wishlist-heart" onclick="toggleWishlist(this)">&#9825;</span>
+            <span class="offer-badge">Limited Time Offer</span>
+            <img src="lhg3.webp" alt="kurti3" onclick="zoomImage(this.src)">
+            <div class="name">Lehenga set for Women star jorjet Embroidered Semi Stitched Lehenga </div>
+            <div class="price">Rs.948</div>
+            <div class="star-rating" data-rating="3" onmousemove="starHover(event, this)" onmouseleave="starLeave(this)" onclick="starClick(event, this)">
+                <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span class="inactive">&#9733;</span><span class="inactive">&#9733;</span>
+            </div>
+            <div class="rating"></div>
+            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="buy-now-btn">Buy Now</button>
+            <button class="quick-view-btn" onclick="openModal(2)">Quick View</button>
+        </div>
+        <div class="product-card" style="position:relative;">
+            <span class="wishlist-heart" onclick="toggleWishlist(this)">&#9825;</span>
+            <img src="lhg4.webp" alt="kurti4" onclick="zoomImage(this.src)">
+            <div class="name">Women's Trending Designeer Tussar Silk Lehenga Choli Print with Foil Work</div>
+            <div class="price">Rs.638</div>
+            <div class="star-rating" data-rating="4" onmousemove="starHover(event, this)" onmouseleave="starLeave(this)" onclick="starClick(event, this)">
+                <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span class="inactive">&#9733;</span>
+            </div>
+            <div class="rating"></div>
+            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="buy-now-btn">Buy Now</button>
+            <button class="quick-view-btn" onclick="openModal(3)">Quick View</button>
+        </div>
+        <div class="product-card" style="position:relative;">
+            <span class="wishlist-heart" onclick="toggleWishlist(this)">&#9825;</span>
+            <span class="offer-badge">Limited Time Offer</span>
+            <img src="lhg5.webp" alt="kurti5" onclick="zoomImage(this.src)">
+            <div class="name">JIHU CULTURE Pink Organza Zari Sequence Embroidery Work Semi-Sttiched Lehenga Choli Set For Women </div>
+            <div class="price">Rs.750</div>
+            <div class="star-rating" data-rating="4" onmousemove="starHover(event, this)" onmouseleave="starLeave(this)" onclick="starClick(event, this)">
+                <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span class="inactive">&#9733;</span>
+            </div>
+            <div class="rating"></div>
+            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="buy-now-btn">Buy Now</button>
+            <button class="quick-view-btn" onclick="openModal(4)">Quick View</button>
+        </div>
+        <div class="product-card" style="position:relative;">
+            <span class="wishlist-heart" onclick="toggleWishlist(this)">&#9825;</span>
+            <img src="lhg6.webp" alt="kurti6" onclick="zoomImage(this.src)">
+            <div class="name">STYLELOOP Women's Trending Designeer Tussar Silk Lehenga Choli Print with Foil Work</div>
+            <div class="price">Rs.869</div>
+            <div class="star-rating" data-rating="2" onmousemove="starHover(event, this)" onmouseleave="starLeave(this)" onclick="starClick(event, this)">
+                <span>&#9733;</span><span>&#9733;</span><span class="inactive">&#9733;</span><span class="inactive">&#9733;</span><span class="inactive">&#9733;</span>
+            </div>
+            <div class="rating"></div>
+            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="buy-now-btn">Buy Now</button>
+            <button class="quick-view-btn" onclick="openModal(5)">Quick View</button>
+        </div>
+        
+    </div>
+</div>
+<!-- Quick View Modal -->
+<div id="quickViewModal" class="modal">
+    <div class="modal-content" id="modalContent">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <div id="modalDetails"></div>
+    </div>
+</div>
+<!-- Image Zoom Modal -->
+<div id="imageZoomModal" class="modal">
+    <div class="modal-content" style="max-width:90vw;max-height:90vh;padding:0;">
+        <span class="close-modal" onclick="closeImageZoom()">&times;</span>
+        <img id="zoomedImage" src="" alt="Zoomed" style="max-width:600px; max-height:80vh; width:auto; height:auto; display:block; margin:auto;">
+    </div>
+</div>
+<!-- Floating Chat Button and Popup -->
+<button class="floating-chat-btn" onclick="toggleChatPopup()">💬</button>
+<div class="chat-popup" id="chatPopup">
+    <h4>Need Help?</h4>
+    <textarea placeholder="Type your message..."></textarea>
+    <button onclick="sendChatMessage()">Send</button>
+</div>
+<script>
+// Product data for modal
+const products = [
+    {
+        name: "INDO ERA Women's Cotton Yoke Design Straight Kurta Pant with Dupatta Set",
+        price: "₹648",
+        img: "kurti.jpg",
+        desc: "Soft cotton, elegant yoke design, includes pant and dupatta. Perfect for festive and daily wear.",
+        rating: 4
+    },
+    {
+        name: "Naixa Women's Vichitra Silk Embroidered A-Line Kurta with Pant and Dupatta Sets (NK-443)",
+        price: "₹1,725",
+        img: "kurti2.jpg",
+        desc: "Premium vichitra silk, beautiful embroidery, A-line fit. Includes pant and dupatta.",
+        rating: 4
+    },
+    {
+        name: "INDO ERA Women's Cotton Blend Embroidered Straight Kurta with Pant & Dupatta Set",
+        price: "₹948",
+        img: "kurti3.jpg",
+        desc: "Cotton blend, elegant embroidery, straight fit. Includes pant and dupatta.",
+        rating: 3
+    },
+    {
+        name: "ANNI DESIGNER Women's Rayon Viscose A-Line Printed Kurta with Pant",
+        price: "₹638",
+        img: "kurti4.webp",
+        desc: "Rayon viscose, A-line cut, stylish prints. Includes pant.",
+        rating: 4
+    },
+    {
+        name: "ANNI DESIGNER Women's Chanderi Cotton Straight Printed Kurta with Dupatta",
+        price: "₹750",
+        img: "kurti5.jpg",
+        desc: "Chanderi cotton, straight fit, printed design. Includes dupatta.",
+        rating: 4
+    },
+    {
+        name: "BHARVITA Women's Cotton Printed Sequence Embroidered Work Straight Kurta Dupatta Pant Set",
+        price: "₹869",
+        img: "kurti6.jpg",
+        desc: "Cotton, sequence embroidery, straight fit. Includes pant and dupatta.",
+        rating: 2
+    }
+];
+// Quick View Modal Functions
+function openModal(idx) {
+    const p = products[idx];
+    document.getElementById('modalDetails').innerHTML = `
+        <img src="${p.img}" alt="${p.name}" style="width:80%;border-radius:8px;box-shadow:0 2px 8px #ccc;">
+        <h3 style="margin:10px 0 5px 0;">${p.name}</h3>
+        <div style="color:#e91e63;font-weight:bold;">${p.price}</div>
+        <div style="margin:8px 0;">${p.desc}</div>
+        <div class="star-rating" style="pointer-events:none;">${'&#9733;'.repeat(p.rating)}${'<span class="inactive">&#9733;</span>'.repeat(5-p.rating)}</div>
+        <button class="buy-now-btn" style="margin-top:12px;">Buy Now</button>
+    `;
+    document.getElementById('quickViewModal').style.display = 'flex';
+}
+function closeModal() {
+    document.getElementById('quickViewModal').style.display = 'none';
+}
+// Wishlist Heart Toggle
+function toggleWishlist(el) {
+    el.classList.toggle('filled');
+    el.innerHTML = el.classList.contains('filled') ? '&#10084;' : '&#9825;';
+}
+// Star Rating Hover Effect
+function starHover(e, el) {
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const width = rect.width;
+    const percent = x / width;
+    const stars = el.querySelectorAll('span');
+    let hoverStars = Math.ceil(percent * 5);
+    stars.forEach((star, i) => {
+        if (i < hoverStars) star.classList.remove('inactive');
+        else star.classList.add('inactive');
+    });
+}
+function starLeave(el) {
+    const rating = parseInt(el.getAttribute('data-rating'));
+    const stars = el.querySelectorAll('span');
+    stars.forEach((star, i) => {
+        if (i < rating) star.classList.remove('inactive');
+        else star.classList.add('inactive');
+    });
+}
+function starClick(e, el) {
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const width = rect.width;
+    const percent = x / width;
+    let newRating = Math.ceil(percent * 5);
+    el.setAttribute('data-rating', newRating);
+    starLeave(el);
+}
+// Countdown Timer
+function startCountdown(duration) {
+    let timer = duration, minutes, seconds;
+    const countdown = document.getElementById('countdown');
+    function update() {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        countdown.textContent = ` | Offer ends in ${minutes}:${seconds}`;
+        if (--timer < 0) {
+            countdown.textContent = " | Offer ended!";
+        } else {
+            setTimeout(update, 1000);
+        }
+    }
+    update();
+}
+window.onload = function() {
+    startCountdown(60*10); // 10 minutes
+    // Initialize star ratings
+    document.querySelectorAll('.star-rating').forEach(el => starLeave(el));
+};
+// Floating Chat Button
+function toggleChatPopup() {
+    const popup = document.getElementById('chatPopup');
+    popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+}
+function sendChatMessage() {
+    const popup = document.getElementById('chatPopup');
+    const textarea = popup.querySelector('textarea');
+    if (textarea.value.trim()) {
+        alert('Thank you for your message! Our team will get back to you soon.');
+        textarea.value = '';
+        popup.style.display = 'none';
+    }
+}
+// Add image zoom functions
+function zoomImage(src) {
+    document.getElementById('zoomedImage').src = src;
+    document.getElementById('imageZoomModal').style.display = 'flex';
+}
+function closeImageZoom() {
+    document.getElementById('imageZoomModal').style.display = 'none';
+}
+</script>
+</body>
+</html>
+

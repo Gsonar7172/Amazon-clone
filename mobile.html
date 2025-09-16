@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Amazon Mobiles - India's No.1 Trusted Mobile Platform</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f3f3f3;
+    }
+    .header {
+      background-color: #131921;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 20px;
+      flex-wrap: wrap;
+    }
+    .logo img {
+      width: 100px;
+    }
+    .search-bar {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      max-width: 600px;
+      margin: 10px;
+    }
+    .search-bar input[type="text"] {
+      width: 80%;
+      padding: 8px;
+      border: none;
+      font-size: 16px;
+    }
+    .search-bar .search-button {
+      background-color: #febd69;
+      border: none;
+      padding: 9px 15px;
+      cursor: pointer;
+    }
+    .cart-icon {
+      text-decoration: none;
+      color: inherit;
+      font-size: 1.2em;
+      position: relative;
+    }
+    .cart-count {
+      background: #febd69;
+      color: #131921;
+      border-radius: 50%;
+      padding: 2px 7px;
+      font-size: 0.9em;
+      position: absolute;
+      top: -8px;
+      right: -15px;
+    }
+    .navbar {
+      background-color: #1f242c;
+      padding: 5px 20px;
+      color: white;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      font-size: 16px;
+    }
+    .navbar a {
+      text-decoration: none;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+    }
+    .navbar a:hover {
+      background-color: #005bb5;
+    }
+    .hero-banner {
+      position: relative;
+      background: linear-gradient(90deg, #febd69 0%, #ff9900 100%);
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #131921;
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+    .hero-banner .overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      animation: fadeIn 2s;
+    }
+    .hero-banner h1 {
+      font-size: 2.5em;
+      margin: 0;
+      font-weight: bold;
+      letter-spacing: 1px;
+      animation: popIn 1s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    .hero-banner p {
+      font-size: 1.3em;
+      margin-top: 10px;
+      color: #333;
+      animation: fadeIn 2s 0.5s forwards;
+      opacity: 0;
+    }
+    @keyframes popIn {
+      0% {transform: scale(0.5); opacity: 0;}
+      80% {transform: scale(1.1);}
+      100% {transform: scale(1); opacity: 1;}
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    .product-section {
+      margin: 20px;
+    }
+    .product-section h2 {
+      color: #131921;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .product-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: flex-start;
+    }
+    .product-card {
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      padding: 15px;
+      text-align: center;
+      border-radius: 5px;
+      width: 200px;
+      transition: box-shadow 0.2s;
+    }
+    .product-card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+    .name {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #131921;
+    }
+    .price {
+      color: #b12704;
+      font-size: 1.1em;
+      margin-bottom: 5px;
+    }
+    .rating {
+      color: #ffa41c;
+      margin-bottom: 10px;
+    }
+    .add-to-cart-btn {
+      background-color: #febd69;
+      border: none;
+      padding: 10px 0;
+      width: 100%;
+      font-size: 1em;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #131921;
+      transition: background 0.2s;
+    }
+    .add-to-cart-btn:hover {
+      background-color: #ff9900;
+    }
+    @media (max-width: 768px) {
+      .product-cards {
+        flex-direction: column;
+        align-items: center;
+      }
+      .navbar {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header/Navbar -->
+  <div class="header">
+    <div class="logo">
+      <img src="C:/Users/sonar/amazon/amazon.webp" alt="amazon Logo">
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search for mobiles...">
+      <button class="search-button">🔍</button>
+    </div>
+    <a href="cart.html" class="cart-icon">
+      🛒 Cart <span class="cart-count"></span>
+    </a>
+  </div>
+  <!-- Navbar -->
+  <div class="navbar">
+    <a href="Amazon.html">Home</a>
+    <a href="#">New Releases</a>
+    <a href="#">Best Sellers</a>
+    <a href="#">Today's Deals</a>
+    <a href="#">Accessories</a>
+    <a href="#">All Mobiles</a>
+  </div>
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="overlay">
+      <h1>India's No.1 Biggest Trusted Mobile Platform</h1>
+      <p style="opacity:1;">Shop the latest mobiles with confidence!</p>
+    </div>
+  </div>
+  <!-- Offer Banner with Countdown -->
+  <div class="offer-banner" style="background:#ffe8cc; padding:20px; text-align:center; border:1px solid #f0c36d; border-radius:8px; margin: 0 20px 30px 20px;">
+    <h2 style="color:#b36b00; margin:0;">Limited Time Offer: Extra 10% Off on All Mobiles!</h2>
+    <p style="margin:10px 0 0 0; font-size:1.1em; color:#b36b00;">Hurry up! Offer ends in <span id="timer" style="font-weight:bold; color:#d35400;">05:00</span> minutes!</p>
+  </div>
+  <!-- Product Section -->
+  <div class="product-section">
+    <h2>Top Mobile Deals</h2>
+    <div class="product-cards">
+      <div class="product-card">
+        <img src="C:/Users/sonar/amazon/mobile1.jpg" alt="Samsung Galaxy S23">
+        <div class="name">Samsung Galaxy S23 Ultra 5G</div>
+        <div class="price">₹1,09,999</div>
+        <div class="rating">★★★★★</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="C:/Users/sonar/amazon/mobile2.jpg" alt="iPhone 14 Pro">
+        <div class="name">Apple iPhone 14 Pro Max</div>
+        <div class="price">₹1,27,999</div>
+        <div class="rating">★★★★★</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="C:/Users/sonar/amazon/mobile3.jpg" alt="OnePlus 11">
+        <div class="name">OnePlus 11 5G</div>
+        <div class="price">₹56,999</div>
+        <div class="rating">★★★★☆</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="C:/Users/sonar/amazon/mobile4.jpg" alt="Redmi Note 12">
+        <div class="name">Redmi Note 12 Pro+ 5G</div>
+        <div class="price">₹29,999</div>
+        <div class="rating">★★★★☆</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Cart count logic
+    function updateCartCount() {
+      const count = localStorage.getItem('cartCount') || 0;
+      document.querySelector('.cart-count').textContent = count > 0 ? count : '';
+    }
+    // Offer countdown timer
+    let offerTime = 5 * 60; // 5 minutes in seconds
+    function startTimer() {
+      const timerElem = document.getElementById('timer');
+      function update() {
+        const min = String(Math.floor(offerTime / 60)).padStart(2, '0');
+        const sec = String(offerTime % 60).padStart(2, '0');
+        timerElem.textContent = `${min}:${sec}`;
+        if (offerTime > 0) {
+          offerTime--;
+          setTimeout(update, 1000);
+        } else {
+          timerElem.textContent = '00:00';
+        }
+      }
+      update();
+    }
+    // Add to Cart button logic
+    document.querySelectorAll('.add-to-cart-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        let count = parseInt(localStorage.getItem('cartCount') || '0', 10);
+        count += 1;
+        localStorage.setItem('cartCount', count);
+        updateCartCount();
+        alert('Item added to cart!');
+        cart.push({ name: this.parentNode.querySelector('.name').textContent, price: this.parentNode.querySelector('.price').textContent, img: this.parentNode.querySelector('img').src });
+        localStorage.setItem('cart', JSON.stringify(cart));
+      });
+    });
+    // Initialize cart count and timer on page load
+    updateCartCount();
+    startTimer();
+  </script>
+</body>
+</html> 

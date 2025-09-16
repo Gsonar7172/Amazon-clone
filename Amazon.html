@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Amazon - Online Shopping</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f3f3f3;
+        }
+
+        .header {
+            background-color: #131921;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 20px;
+            flex-wrap: wrap;
+        }
+
+        .logo img {
+            width: 100px;
+        }
+
+        .search-bar {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            max-width: 600px;
+            margin: 10px;
+        }
+
+        .search-bar input[type="text"] {
+            width: 80%;
+            padding: 8px;
+            border: none;
+            font-size: 16px;
+        }
+
+        .search-bar .search-button {
+            background-color: #febd69;
+            border: none;
+            padding: 9px 15px;
+            cursor: pointer;
+        }
+
+        .options {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 14px;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            color: black;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            padding: 10px 16px;
+            display: block;
+            text-decoration: none;
+            color: black;
+        }
+
+        /* Navbar Style */
+        .navbar {
+            background-color: #1f242c; /* Blue background */
+            padding: 5px 20px;
+            color: white;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            font-size: 16px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        .navbar a:hover {
+            background-color: #005bb5;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            position: relative;
+            background-image: url('summer sale.webp');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .hero-banner .overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-banner h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+
+        .hero-banner p {
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin: 20px;
+            flex-wrap: nowrap;  /* Prevent categories from wrapping to a new line */
+            overflow-x: auto;   /* Allow horizontal scrolling if the screen size is small */
+        }
+
+        .category-card {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            flex: 0 0 160px; /* Ensure each category card takes up 160px */
+            min-width: 150px;
+            max-width: 160px;
+        }
+
+        .category-card img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .product-section,
+        .offer-section {
+            margin: 20px;
+        }
+
+        .product-cards {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap; /* Prevent wrapping */
+            gap: 20px;
+            justify-content: flex-start;
+            overflow-x: auto; /* Allow horizontal scroll if needed */
+        }
+
+        .product-card {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            width: 200px;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .checkout-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .checkout-form input,
+        .checkout-form select {
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .checkout-form button {
+            background-color: #febd69;
+            padding: 10px;
+            font-size: 1.2em;
+            border: none;
+            cursor: pointer;
+        }
+
+        .offer-banner {
+            background: #ffe8cc;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #f0c36d;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .offer-banner h2 {
+            color: #b36b00;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .categories {
+                flex-direction: row; /* Keep in a line even on small screens */
+                flex-wrap: nowrap;
+                overflow-x: auto;
+            }
+            .product-cards {
+                flex-direction: row; /* Keep in a line even on small screens */
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                align-items: flex-start;
+            }
+        }
+
+        .car-dropdown {
+            position: relative;
+        }
+        .car-dropdown .car-menu {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            background: white;
+            color: black;
+            min-width: 600px;
+            white-space: nowrap;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 2;
+            padding: 0;
+        }
+        .car-dropdown:hover .car-menu {
+            display: flex;
+            flex-direction: row;
+            gap: 0;
+        }
+        .car-menu a {
+            display: inline-block;
+            padding: 10px 20px;
+            color: black;
+            text-decoration: none;
+            border-right: 1px solid #eee;
+        }
+        .car-menu a:last-child {
+            border-right: none;
+        }
+        .car-menu a:hover {
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header/Navbar -->
+<div class="header">
+    <div class="logo">
+        <img src="amazon.webp" alt="amazon Logo">
+    </div>
+
+    <div class="search-bar">
+        <input type="text" placeholder="Search for products..." list="suggestions">
+        <button class="search-button">🔍</button>
+        <datalist id="suggestions">
+            <option value="Wireless Headphones">
+            <option value="Bluetooth Speakers">
+            <option value="Smartphones">
+            <option value="Laptops">
+            <option value="Smart Watches">
+        </datalist>
+    </div>
+
+    <div class="options">
+        <div class="dropdown">
+            <button class="dropbtn" id="accountBtn">Account ▾</button>
+            <div class="dropdown-menu">
+            <a href="#" onclick="selectAccountOption('Login')">Login</a>
+            <a href="profile.php" onclick="selectAccountOption('Profile')">Profile</a>
+
+            <a href="#" onclick="selectAccountOption('Orders')">Orders</a>
+            </div>
+        </div>
+
+        <a href="cart.html" class="cart-icon" style="text-decoration: none; color: inherit;">
+            🛒 Cart
+            <span class="cart-count"></span>
+        </a>
+
+        <div class="dropdown" id="langDropdown">
+            <button class="dropbtn" id="langBtn">🌐 EN | IN ▾</button>
+            <div class="dropdown-menu" id="langMenu">
+                <a href="#" onclick="selectLangOption('English - EN')">English - EN</a>
+                <a href="#" onclick="selectLangOption('Hindi - HI')">Hindi - HI</a>
+                <a href="#" onclick="selectLangOption('India - IN')">India - IN</a>
+                <a href="#" onclick="selectLangOption('United States - US')">United States - US</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Navbar (Below Search Bar) -->
+<div class="navbar">
+    <a href="#">New Releases</a>
+    <a href="#">Today's Deals</a>
+    <a href="mobile.html">Mobile Items</a>
+    <a href="car-categories.html">Cars</a>
+    <a href="#">Fashion</a>
+    <a href="#">Trending</a>
+    <a href="#">Best Sellers</a>
+</div>
+
+<!-- Hero Banner -->
+<div class="hero-banner">
+    <div class="overlay">
+        <h1>Welcome to Amazon</h1>
+        <p>Explore the best deals and trending products</p>
+    </div>
+</div>
+
+<!-- Product Categories -->
+<div class="categories">
+    <a href="category-men.html" style="text-decoration:none;color:inherit;">
+        <div class="category-card">
+            <img src="new2.webp" alt="Men">
+            <h3>Men</h3>
+        </div>
+    </a>
+    <a href="category-women.html" style="text-decoration:none;color:inherit;">
+        <div class="category-card">
+            <img src="shopping-girl.jpg" alt="Women">
+            <h3>Women</h3>
+        </div>
+    </a>
+    <a href="category-children.html" style="text-decoration:none;color:inherit;">
+        <div class="category-card">
+            <img src="child.jpg" alt="Children">
+            <h3>Children</h3>
+        </div>
+    </a>
+    <a href="category-kitchen.html" style="text-decoration:none;color:inherit;">
+        <div class="category-card">
+            <img src="kitchen.webp" alt="Kitchen & Home">
+            <h3>Kitchen & Home</h3>
+        </div>
+    </a>
+    <a href="category-sports.html" style="text-decoration:none;color:inherit;">
+        <div class="category-card">
+            <img src="sport.jpg" alt="Sports">
+            <h3>Sports</h3>
+        </div>
+    </a>
+    <a href="category-grocery.html" style="text-decoration:none;color:inherit;">
+        <div class="category-card">
+            <img src="Grocery.png" alt="Grocery">
+            <h3>Grocery</h3>
+        </div>
+    </a>
+</div>
+
+<!-- Product Section -->
+<div class="product-section">
+    <h2>Shop the Best Deals</h2>
+    <div class="product-cards">
+        <div class="product-card">
+            <img src="headphone3.jpg" alt="Headphones">
+            <div class="name">Wireless Headphones</div>
+            <div class="price">₹3,000</div>
+            <div class="rating">★★★★☆</div>
+            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="buy-now-btn" style="margin-top:8px;background:#ffd814;">Buy Now</button>
+        </div>
+        <div class="product-card">
+            <img src="laptop2.jpg" alt="Laptop">
+            <div class="name"> HP 15s, 12th Gen Intel Core i3-1215U Laptop (8GB DDR4, 512GB SSD)</div>
+            <div class="price">₹45,000</div>
+            <div class="rating">★★★★☆</div>
+            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="buy-now-btn" style="margin-top:8px;background:#ffd814;">Buy Now</button>
+        </div>
+        <div class="product-card">
+            <img src="Grocery.png" alt="Groceries">
+            <div class="name">Organic Grocery Pack</div>
+            <div class="price">₹800</div>
+            <div class="rating">★★★☆☆</div>
+            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="buy-now-btn" style="margin-top:8px;background:#ffd814;">Buy Now</button>
+        </div>
+        <div class="product-card">
+            <img src="beauty.jpg" alt="Groceries">
+            <div class="name">Lakme Absolute Day-N-Night cream</div>
+            <div class="price">₹1290</div>
+            <div class="rating">★★★★☆</div>
+            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="buy-now-btn" style="margin-top:8px;background:#ffd814;">Buy Now</button>
+        </div>
+        <div class="product-card">
+            <img src="fitness.jpg" alt="Groceries">
+            <div class="name">QUXIS Resistance Bands Set for Men and Women</div>
+            <div class="price">₹750</div>
+            <div class="rating">★★★★☆</div>
+            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="buy-now-btn" style="margin-top:8px;background:#ffd814;">Buy Now</button>
+        </div>
+        <div class="product-card">
+            <img src="health.jpg" alt="Groceries">
+            <div class="name">Dabur Jamun Neem Karela Juice - 1L | Helps Control Blood Sugar Level & Reduces Bad Cholesterol </div>
+            <div class="price">₹236</div>
+            <div class="rating">★★☆☆☆</div>
+            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="buy-now-btn" style="margin-top:8px;background:#ffd814;">Buy Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- Offer Section -->
+<div class="offer-section">
+    <div class="offer-banner">
+        <h2>Special Offer: Flat 30% Off on Electronics!</h2>
+        <p>Limited time only. Shop now and save big on top brands.</p>
+    </div>
+</div>
+
+<!-- Checkout Form -->
+<div class="checkout-form">
+    <h2>Checkout</h2>
+    <input type="text" placeholder="Enter shipping address">
+    <select>
+        <option value="credit">Credit Card</option>
+        <option value="paypal">PayPal</option>
+    </select>
+    <button>Place Order</button>
+</div>
+
+<!-- Add Login Modal -->
+<div id="loginModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
+  <div style="background:white; padding:30px 40px; border-radius:8px; min-width:300px; position:relative;">
+    <button onclick="closeLoginModal()" style="position:absolute; top:10px; right:10px; background:none; border:none; font-size:20px; cursor:pointer;">&times;</button>
+    <h2>Login</h2>
+    <form id="loginForm" onsubmit="submitLogin(event)">
+      <input type="text" id="loginEmail" placeholder="Email or Mobile" required style="width:100%; margin-bottom:10px; padding:8px;" onblur="validateEmail()">
+      <input type="password" placeholder="Password" required style="width:100%; margin-bottom:10px; padding:8px;">
+      <button type="submit" style="width:100%; background:#febd69; border:none; padding:10px; font-size:1em; cursor:pointer;">Login</button>
+      <div style="margin-top:10px; text-align:center;">
+        <span>New user? <a href="#" onclick="showSignUpForm(event)">Sign Up</a></span>
+      </div>
+    </form>
+    <form id="signUpForm" onsubmit="submitSignUp(event)" style="display:none;">
+      <input type="text" id="signUpFirstName" placeholder="First Name" required style="width:100%; margin-bottom:10px; padding:8px;">
+      <input type="text" id="signUpLastName" placeholder="Last Name" required style="width:100%; margin-bottom:10px; padding:8px;">
+      <input type="number" id="signUpPhone" placeholder="Phone Number" required style="width:100%; margin-bottom:10px; padding:8px;">
+      <input type="text" id="signUpCity" placeholder="City" required style="width:100%; margin-bottom:10px; padding:8px;">
+      <input type="text" id="signUpPincode" placeholder="Pincode" required style="width:100%; margin-bottom:10px; padding:8px;">
+      <input type="text" id="signUpEmail" placeholder="Email (must be @gmail.com)" required style="width:100%; margin-bottom:10px; padding:8px;">
+      <input type="password" id="signUpPassword" placeholder="Password" required style="width:100%; margin-bottom:10px; padding:8px;">
+      <input type="password" id="signUpConfirm" placeholder="Confirm Password" required style="width:100%; margin-bottom:10px; padding:8px;">
+      <button type="submit" style="width:100%; background:#febd69; border:none; padding:10px; font-size:1em; cursor:pointer;">Sign Up</button>
+      <div style="margin-top:10px; text-align:center;">
+        <span>Already have an account? <a href="#" onclick="showLoginForm(event)">Login</a></span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+   
+    function selectAccountOption(option) {
+        document.getElementById('accountBtn').textContent = option + ' ▾';
+        if (option === 'Login') {
+            openLoginModal();
+        }
+    }
+
+    function openLoginModal() {
+        document.getElementById('loginModal').style.display = 'flex';
+    }
+
+    function closeLoginModal() {
+        document.getElementById('loginModal').style.display = 'none';
+    }
+
+    function validateEmail() {
+        var email = document.getElementById('loginEmail').value;
+        if (email && !email.includes('@gmail.com')) {
+            alert('Email is invalid');
+        }
+    }
+
+    function submitLogin(event) {
+    event.preventDefault();
+
+    const data = new FormData();
+    data.append("email", document.getElementById("loginEmail").value);
+    data.append("password", document.querySelector("#loginForm input[type='password']").value);
+
+    fetch("login.php", {
+        method: "POST",
+        body: data
+    })
+    .then(response => response.text())
+    .then(data => {
+        if (data === "success") {
+            alert("Login successful!");
+            closeLoginModal();
+        } else {
+            alert("Login failed. Check email or password.");
+        }
+    });
+}
+
+
+    /* function submitLogin(event) {
+        event.preventDefault();
+        // You can add authentication logic here
+        alert('Login successful!');
+        closeLoginModal();
+    }*/
+
+    // Language/Country Dropdown Logic
+    const langBtn = document.getElementById('langBtn');
+    const langMenu = document.getElementById('langMenu');
+    const langDropdown = document.getElementById('langDropdown');
+
+    langBtn.addEventListener('click', function(event) {
+        event.stopPropagation();
+        langMenu.style.display = (langMenu.style.display === 'block') ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!langDropdown.contains(event.target)) {
+            langMenu.style.display = 'none';
+        }
+    });
+
+    function selectLangOption(option) {
+        langBtn.textContent = '🌐 ' + option + ' ▾';
+        langMenu.style.display = 'none';
+    }
+
+    // Cart logic
+    function updateCartCount() {
+        const count = localStorage.getItem('cartCount') || 0;
+        document.querySelector('.cart-count').textContent = count > 0 ? count : '';
+    }
+
+    // Add to Cart button logic
+    document.querySelectorAll('.add-to-cart-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            let count = parseInt(localStorage.getItem('cartCount') || '0', 10);
+            count += 1;
+            localStorage.setItem('cartCount', count);
+            updateCartCount();
+            alert('Item added to cart!');
+            cart.push({ name: this.parentNode.querySelector('.name').textContent, price: this.parentNode.querySelector('.price').textContent, img: this.parentNode.querySelector('img').src });
+            localStorage.setItem('cart', JSON.stringify(cart));
+        });
+    });
+
+    // Buy Now button redirect logic
+    document.querySelectorAll('.buy-now-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const card = this.parentNode;
+            const name = encodeURIComponent(card.querySelector('.name').textContent);
+            const price = encodeURIComponent(card.querySelector('.price').textContent);
+            const img = encodeURIComponent(card.querySelector('img').src);
+            window.location.href = `buy-now.html?name=${name}&price=${price}&img=${img}`;
+        });
+    });
+
+    // Initialize cart count on page load
+    updateCartCount();
+
+    document.querySelector('.cart-icon')
+
+    function showSignUpForm(event) {
+        event.preventDefault();
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('signUpForm').style.display = 'block';
+    }
+    function showLoginForm(event) {
+        event.preventDefault();
+        document.getElementById('signUpForm').style.display = 'none';
+        document.getElementById('loginForm').style.display = 'block';
+    }
+
+    function submitSignUp(event) {
+    event.preventDefault();
+
+    const data = new FormData();
+    data.append("firstName", document.getElementById("signUpFirstName").value);
+    data.append("lastName", document.getElementById("signUpLastName").value);
+    data.append("phone", document.getElementById("signUpPhone").value);
+    data.append("city", document.getElementById("signUpCity").value);
+    data.append("pincode", document.getElementById("signUpPincode").value);
+    data.append("email", document.getElementById("signUpEmail").value);
+    data.append("password", document.getElementById("signUpPassword").value);
+
+    fetch("signup.php", {
+        method: "POST",
+        body: data
+    })
+    .then(response => response.text())
+    .then(data => {
+        if (data === "success") {
+            alert("Sign Up successful!");
+            showLoginForm(event);
+        } else {
+            alert("Sign Up failed: " + data);
+        }
+    });
+}
+</script>
+</body>
+</html>

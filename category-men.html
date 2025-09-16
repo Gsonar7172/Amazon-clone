@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Women's Category - Amazon</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            background: #f3f3f3;
+        }
+        .header {
+            background: #232f3e;
+            color: white;
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header .logo {
+            font-size: 1.7em;
+            font-weight: bold;
+            color: #ff9900;
+            letter-spacing: 1px;
+        }
+        .header .search-bar {
+            flex: 1;
+            margin: 0 30px;
+            display: flex;
+        }
+        .header input[type="text"] {
+            width: 100%;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 1em;
+        }
+        .header button {
+            background: #febd69;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 0 4px 4px 0;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .header .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 18px;
+            font-size: 1em;
+            transition: color 0.2s;
+        }
+        .header .nav-links a:hover {
+            color: #febd69;
+        }
+        .main-title {
+            text-align: left;
+            font-size: 2em;
+            color: #232f3e;
+            font-weight: bold;
+            margin: 30px 0 10px 40px;
+        }
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+            margin: 0 40px 40px 40px;
+        }
+        .category-card {
+            background: white;
+            padding: 20px 10px 18px 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            text-align: center;
+            transition: transform 0.18s, box-shadow 0.18s;
+            position: relative;
+        }
+        .category-card:hover {
+            transform: translateY(-6px) scale(1.04);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.13);
+        }
+        .category-card img {
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        .category-card h3 {
+            margin: 10px 0 8px 0;
+            font-size: 1.1em;
+            color: #232f3e;
+        }
+        .category-card .shop-btn {
+            background: #ff9900;
+            color: #232f3e;
+            border: none;
+            border-radius: 4px;
+            padding: 7px 18px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background 0.2s;
+        }
+        .category-card .shop-btn:hover {
+            background: #febd69;
+        }
+        .footer {
+            background: #232f3e;
+            color: #fff;
+            text-align: center;
+            padding: 18px 0 10px 0;
+            font-size: 0.95em;
+            margin-top: 40px;
+        }
+        @media (max-width: 700px) {
+            .main-title, .categories {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            .main-title {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">amazon</div>
+        <form class="search-bar" onsubmit="return false;">
+            <input type="text" placeholder="Search Amazon.in" />
+            <button type="submit">🔍</button>
+        </form>
+        <div class="nav-links">
+            <a href="#">Today's Deals</a>
+            <a href="#">Customer Service</a>
+            <a href="#">Gift Cards</a>
+            <a href="Amazon.html">Home</a>
+        </div>
+    </div>
+    <div class="main-title">Men's Category</div>
+    <div class="categories">
+        <a href="T-Shirt.html" style="text-decoration:none;color:inherit;">
+            <div class="category-card">
+                <img src="T1.jpg" alt="Ethinic Wear">
+                <h3>T-Shirt</h3>
+                <button class="shop-btn">Shop Now</button>
+            </div>
+        </a>
+        <a href="Shirt.html" style="text-decoration:none;color:inherit;">
+            <div class="category-card">
+                <img src="Sh1.jpg" alt="Western Wear">
+                <h3>Shirt</h3>
+                <button class="shop-btn">Shop Now</button>
+            </div>
+        </a>
+        <a href="Mens_footware.html" style="text-decoration:none;color:inherit;">
+            <div class="category-card">
+                <img src="shoe1.jpg" alt="Footwear">
+                <h3>Footwear</h3>
+                <button class="shop-btn">Shop Now</button>
+            </div>
+        </a>
+        <a href="Sunglasses.html" style="text-decoration:none;color:inherit;">
+            <div class="category-card">
+                <img src="Sun1.jpg" alt="Saree">
+                <h3>Sunglasses</h3>
+                <button class="shop-btn">Shop Now</button>
+            </div>
+        </a>
+        <a href="jeans.html" style="text-decoration:none;color:inherit;">
+            <div class="category-card">
+                <img src="J1.jpg" alt="Jewellery">
+                <h3>jeans</h3>
+                <button class="shop-btn">Shop Now</button>
+            </div>
+        </a>
+        <a href="watch.html" style="text-decoration:none;color:inherit;">
+            <div class="category-card">
+                <img src="W1.jpg" alt="Lehenga">
+                <h3>Watches</h3>
+                <button class="shop-btn">Shop Now</button>
+            </div>
+        </a>
+    </div>
+    <div class="footer">
+        &copy; 2024 Amazon Clone. For demonstration purposes only. <br>
+        <a href="Amazon.html" style="color:#febd69;text-decoration:underline;">Back to Home</a>
+    </div>
+</body>
+</html> 

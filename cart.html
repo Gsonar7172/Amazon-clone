@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Your Cart - Amazon</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 24px;
+        }
+        h1 {
+            text-align: center;
+            color: #131921;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding: 12px 0;
+        }
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-right: 16px;
+        }
+        .cart-item-details {
+            flex: 1;
+        }
+        .cart-item-name {
+            font-weight: bold;
+        }
+        .cart-item-price {
+            color: #b12704;
+        }
+        .empty-cart {
+            text-align: center;
+            color: #888;
+            margin: 40px 0;
+        }
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 24px;
+        }
+        .btn {
+            background: #febd69;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            color: #131921;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .btn:active {
+            background: #f0c14b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Cart</h1>
+        <div id="cartItems"></div>
+        <div class="actions">
+            <a href="Amazon.html" class="btn">Continue Shopping</a>
+            <button class="btn" id="clearCartBtn">Clear Cart</button>
+        </div>
+    </div>
+    <script>
+        function renderCart() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const cartItemsDiv = document.getElementById('cartItems');
+            if (cart.length === 0) {
+                cartItemsDiv.innerHTML = '<div class="empty-cart">Your cart is empty.</div>';
+            } else {
+                cartItemsDiv.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <img src="${item.img}" alt="${item.name}">
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">${item.price}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+        document.getElementById('clearCartBtn').onclick = function() {
+            localStorage.removeItem('cart');
+            localStorage.removeItem('cartCount');
+            renderCart();
+            if (document.querySelector('.cart-count')) document.querySelector('.cart-count').textContent = '';
+        };
+        renderCart();
+    </script>
+</body>
+</html> 
